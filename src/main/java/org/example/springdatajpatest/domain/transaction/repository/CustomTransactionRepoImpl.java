@@ -20,7 +20,6 @@ import static org.example.springdatajpatest.domain.transaction.QTransaction.tran
 public class CustomTransactionRepoImpl implements CustomTransactionRepo {
     private final JPAQueryFactory jpaQueryFactory;
 
-
     @Override
     public Page<TransactionResponse> getTransactions(TransactionSearchRequest request) {
         List<TransactionResponse> transactionResponses = jpaQueryFactory
