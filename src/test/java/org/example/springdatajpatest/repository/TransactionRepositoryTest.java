@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.ActiveProfiles;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DataJpaTest
 @ActiveProfiles("test")
 @Import(TestQueryDslConfig.class)
@@ -28,18 +30,22 @@ public class TransactionRepositoryTest {
     @Autowired
     private CustomTransactionRepo customTransactionRepo;
 
-    @BeforeEach
-    public void setUp() {
-        transactionRepository.saveAll(TransactionDummy.create());
-    }
-
-    @DisplayName("페이징 테스트")
+    @DisplayName("거래내역 페이징 테스트")
     @Test
-    public void pagingTest() {
-        TransactionSearchRequest request = new TransactionSearchRequest();
-        request.setPageNumber(3);
-        request.setPageSize(10);
+    public void transactionPagingTest() {
+        // given
+        transactionRepository.saveAll(TransactionDummy.create());
+
+        TransactionSearchRequest request = TransactionSearchRequest.builder()
+                .pageNumber(3)
+                .pageSize(10)
+                .build();
+
+        // when
         Page<TransactionResponse> transactions = customTransactionRepo.getTransactions(request);
-        transactions.getContent().forEach(transactionResponse -> logger.info(transactionResponse::toString));
+
+        // then
+        assertEquals(31, transactions.getContent().get(0).getNo());
+        assertEquals(40, transactions.getContent().get(9).getNo());
     }
 }
