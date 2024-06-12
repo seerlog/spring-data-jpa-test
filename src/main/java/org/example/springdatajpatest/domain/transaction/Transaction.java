@@ -1,10 +1,7 @@
 package org.example.springdatajpatest.domain.transaction;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,8 +10,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@Builder
+@Table(name = "TRAN")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NO", nullable = false)
     private Long no;
 
@@ -43,12 +45,12 @@ public class Transaction {
     private String modifier;
 
     @CreationTimestamp
-    @Column(name = "CREATED_AT", nullable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "CREATED_DT", nullable = false)
+    private LocalDateTime createdDt;
 
     @UpdateTimestamp
-    @Column(name = "MODIFIED_AT")
-    private LocalDateTime modifiedAt;
+    @Column(name = "MODIFIED_DT")
+    private LocalDateTime modifiedDt;
 
     @Column(name = "IS_DELETED", nullable = false)
     private String isDeleted;
