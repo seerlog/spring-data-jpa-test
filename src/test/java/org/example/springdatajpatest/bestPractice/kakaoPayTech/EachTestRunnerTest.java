@@ -1,6 +1,5 @@
 package org.example.springdatajpatest.bestPractice.kakaoPayTech;
 
-import com.mysema.commons.lang.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
